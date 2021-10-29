@@ -1,0 +1,330 @@
+<meta charset="utf-8" emacsmode="-*- markdown -*-"> <link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/journal.css?">
+
+        **Zhanwei's memo**
+        Created on October 10, 17:00
+
+# Marker down
+## Typora
+https://mp.weixin.qq.com/s/05WbmzCjMwE5xO2GvBJKnQ
+
+## Markdeep
+https://casual-effects.com/markdeep/#getstarted
+
+# Linux (Ubuntu) common orders
+## File permissions and directory configuration of Linux
+### File permissions
+* owner/group/others 
+* read/write/execute 
+### list details of file 
+* ls -al
+    * 1st column
+        * permission [d]/[-]/[l]/[d]/[b]/[c] represent dir/file/link file/external memory/~
+        * [r] stands for read, [w] stands for write, [x] stands for execute. three charset for each owner/group/others 
+    * 3rd column: account of owner
+    * 4th column: belongs to group 
+    * 5th column: size (Bytes)
+    * 6th column: create date or lastest modified date
+    * 7th column: filename
+### Change file permissions
+* chgrp [-R] dirname/filename (R: recursive, change file's group)
+* chown [-R] dirname/filename (R: recursive, change file's owner)
+* chmod [-R] xyz dirname/filename
+    * determination of xyz
+    * > r:4 > w:2 > x:1
+    * examples: 
+    * > owner = rwx = 4+2+1 = 7 > group = rwx = 4+2+1 = 7 > others= --- = 0+0+0 = 0  ==> 770
+    * > owner = rwx = 4+2+1 = 7 > group = rwx = 4+2+1 = 7 > others= rwx = 0+0+0 = 4+2+1  ==> 777
+    * common: -rwxr-xr-x ==> 755; -rwxr----- ==> 740
+    * another way
+    * example: chmod u=rwx,go=rx dirname/filename
+## Filesystem Hierarchy Standard
+||shareable|unshareable|
+|:---|:--:|:--:|
+|static|/usr (software)|/etc (configuration file)|
+|/opt (Third party collaboration software)|/boot ||
+|variable|/var/mail (email)|/var/run (programme)||
+|/var/spool/news (News group)|/var/lock (programme)||
+
+### Definition of three-tier directory
+* /  (root): related to starting the system
+* /usr (UNIX software resource): related to software installation / execution
+* /var (variable): related to the system operation process
+
+
+## Python
+### Virtual environmental
+    * conda create -n ENV python=3.6
+    * source activate ENV
+    * source deactivate
+### [Adding Virtual Environment in Jupyter Notebook](https://towardsdatascience.com/creating-and-using-virtual-environment-on-jupyter-notebook-with-python-db3f5afdd56a)
+    * pip install --user ipykernel
+    * python -m ipykernel install --user --name=ENV
+
+### How to mount hard disks
+
+### How To Create RAID Arrays with mdadm on Ubuntu 18.04
+* https://www.digitalocean.com/community/tutorials/how-to-create-raid-arrays-with-mdadm-on-ubuntu-18-04
+
+# configuration of Ubuntu 
+
+```bash
+######### About user #########
+# Create user
+adduser --home [/home/energy/username] [username]
+# remove user
+deluser [username
+# change the owner of file 
+chmod [username] [/home/energy/file]
+# create file 
+touch newfile.txt
+# create folder
+mkdir [/home/energy/folder]
+
+######### installation #########
+# install cdo, ncview, vim
+apt-get install cdo 
+apt-get install ncview 
+apt-get install vim
+
+
+######### Deploy New Server with ZFS File System #########
+# Modify Home Direc of One User (It cannot modify the file automatically)
+usermod -d [/newhome/username] [username]
+# Create ZFS Pool
+zpool create -f [energy] raidz1 [/dev/sda /dev/sdb /dev/sdc /dev/sdd] -m [/home/energy]
+
+# View ZFS Info
+zfs list -r [energy]
+# Modify the Mountpoint of ZFS
+zfs set mountpoint=[/home/energy energy]
+# Create User with Spcifying Home Direc
+adduser -h [/home/climate/hmwang] hmwang
+
+######################## Mount ##########################
+# Mount different linux system using nfs
+mount -t nfs 172.16.37.128:/home/climate /home/climate
+```
++ install anaconda3
+[Chinese tutorial](https://blog.csdn.net/codedancing/article/details/103936542)
+
+[English offical tutorial](https://docs.anaconda.com/anaconda/install/multi-user/)
+
+**Notice** : Create `/etc/profile.d/newprofile.sh` to modify global environment variable
+and do not directly modify  `/etc/profile`.
+
++ bash file 
+begin with `#!/usr/bast`
+
++ vim
+change commond mode by pressing `Esc`; change commond mode by pressing `I`;
+
+Under commond mode,  delete current line by pressing `dd`; 
+
+Under commond mode,  save & exit by pressing `:wq`; 
+
+# How to add your Conda environment to your jupyter notebook
++ [How to add your Conda environment to your jupyter notebook in just 4 steps](https://medium.com/@nrk25693/how-to-add-your-conda-environment-to-your-jupyter-notebook-in-just-4-steps-abeab8b8d084)
+
+# how to rotate your screen in Ubuntu
+https://codereviewvideos.com/blog/ubuntu-20-04-portrait-mode-monitor-problems/
+
+# Git 
+https://www.bootcss.com/p/git-guide/
+
+# How to contribute to an open source project on GitHub:
+http://blog.davidecoppola.com/2016/11/howto-contribute-to-open-source-project-on-github/
+https://zhuanlan.zhihu.com/p/23457016
+## Work on your contribution
+- git add ***filename***
+- git add --all
+- git commit -m "comment message"
+## You can undo git add before commit with
+- git reset ***filename***
+- git reset
+## push to remote
+- git push origin ***branchname***
+## [delete specific commit](https://www.jianshu.com/p/335e5ac0a823) 
+```git
+# check all commit log 
+git commit log
+# edit all commit after [id]
+git rebase -i [id]
+# change 'pick' to 'drop' for commit which you want to delete, save it
+# enforce to refresh
+git push origin master -f
+```
+
+# CE3201 Notebook
+- [Good jupyter notebook reference](https://eldridgejm.github.io/dive_into_data_science/02-data_sets/arrays.html)
+- [Google doc](https://docs.google.com/document/d/1iUvmlwfyqWv0N4OReNXhc29X3XUvD7LwGMuceaampYk/edit)
+- [Data Source](http://www.weather.gov.sg/climate-historical-daily/)
+- [Course website](https://xiaoganghe.github.io/NUS-CE3201/)
+# Read json data package
+https://github.com/scikit-hep/awkward-1.0
+
+# Linux common software
+- code (VS code)
+- zotero (management literature)
+- Okular (PDF reader and editor)
+# Interesting Blog
+## [Common mistakes in technical writing](https://cs.dartmouth.edu/~wjarosz/writing.md.html#technicalmistakes/grammar&language)
+
+# Plot
+## Text
++ [**A advice about plot in Nature** Colour me better: fixing figures for colour blindness](https://www.nature.com/articles/d41586-021-02696-z)
+
++ [**Keep font size not change using Python** Native Looking matplotlib Plots in LaTeX](http:/bkanuka.com/posts/native-latex-plots)
+## Code
+### geopandas
+```python
+import geopandas as gpd
+from shapely.geometry import Point, LineString
+# read shape file
+province = gpd.read_file("plot/Export_Output.shp")
+# Get coordinate of Geometric center
+node = province.geometry.centroid
+
+fig, ax = plt.subplots()
+province.plot(ax=ax, facecolor='', edgecolor=tumdarkblue)
+
+# Make lines according to Point
+lines = list() 
+for i,j,v in zip([0, 1, 0, 1, 2, 3],[2, 2, 3, 3, 3, 4], [1000, 1000, 5000, 1000, 1000, 500]):
+#     i, j = node.loc[i,'geometry'], node.loc[j,'geometry']
+    i, j = node.loc[i], node.loc[j]
+    lines.append([v, LineString([[i.x, i.y], [j.x, j.y]])])
+
+i, j = node.loc[3], node.loc[3]   
+lines.append([v, LineString([[i.x, i.y], [j.x, j.y+5]])])
+
+pts_and_lines = gpd.GeoDataFrame(lines,columns=['value', 'lines'], 
+            geometry='lines')
+pts_and_lines.plot(ax=ax, color=tumblue, lw=1)
+ax.axis('off')
+
+# Specifying the order of matplotlib layers: zorder
+node.plot(ax=ax, color='red', zorder=10)
+plt.gcf().savefig('southern.jpg', bbox_inches='tight',dpi=600)
+```
+### Matplotlib 
+```
+# Add text and convert coordinate (transform argument)
+ax.text(x=0.0, y=1.05, s='Total installed capacity=1000MW', transform=ax.transAxes)
+```
+# gurobipy
+```python
+from gurobipy import *
+# self defined read data using xarray
+def Readin(sheet_name, filename='input.xlsx'):
+    if sheet_name == 'time series':
+        df = pd.read_excel('input.xlsx', sheet_name=sheet_name, index_col=0, header=[0, 1])
+        idx = pd.MultiIndex.from_tuples([(*b, a) for a in df.index for b in df.columns], 
+                          name = [*df.columns.names, df.index.name])
+        newdf = pd.DataFrame(df.values.ravel(),index=idx, columns=['demand'])
+        return newdf.to_xarray().demand
+    df = pd.read_excel('input.xlsx', sheet_name=sheet_name, index_col=0, header=0)
+    if df.shape[1] == 1:
+        return xr.DataArray(data=df.squeeze())
+    else:
+        df.columns.name = df.index.name
+        df.index.name = df.index[0]
+        return xr.DataArray(data=df.iloc[1:,:])
+Timeseries = Readin('time series')
+Demand = Readin('demand')
+para =  xr.Dataset(data_vars={'timeseries':Timeseries,
+                             'demand': Demand})
+
+# create linear programming model 
+m = Model("eem_lm")
+# Create variables
+
+# Add variables (addVar and addVars)
+cost = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
+cap_newline = m.addVars(Year, Zone, Zone, vtype=GRB.CONTINUOUS, lb=0) # Capacity of new transmission lines
+
+# Add constraints (addConstr and addConstrs)
+m.addConstr(cost == cost_var + cost_newtech + cost_fix + cost_newline, name='Total cost')
+m.addConstrs((gen[t, y, z, te ] <= cap_existing[y, z, te] +
+              sum([cap_newtech[yy, z, te] for yy in Year[:np.where(Year==y)[0][0]+1]])
+              for t in Time for y in Year for z in Zone for te in Tech), 
+             'Maximum output constraint')
+# set objective function
+m.setObjective(cost, GRB.MINIMIZE)
+
+# Optimization and solve
+m.update()
+m.optimize()
+
+# Get result (.x)
+[[gen[t, 2018, 'Yunnan', te].x for te in Tech] for t in Time]
+```
+# pymysql
+```python
+# read data
+import pymysql.cursors
+# Connect to the database
+connection = pymysql.connect(host='localhost',user='root',password='',database='spg_project',cursorclass=pymysql.cursors.DictCursor)
+```
+
+# legend
+[Matplotlib accurate legend position](https://blog.csdn.net/sinat_41299610/article/details/106494549)
+# Custom font
+查看系统字体
+```python
+from matplotlib.font_manager import fontManager 
+fonts = [font.name for font in fontManager.ttflist]
+```
+在centos上安装字体
+
+下载字体: http://www.myfontfree.com/
+
+mv gill-sans-mt.zip /usr/share/fonts/
+
+unzip gill-sans-mt.zip -d gill-sans-mt
+
+rm -rf ~/.cache/matplotlib/
+
+Solution: "delete the font cache (usually in ~/.matplotlib). Fonts installed after matplotlib is first used are often never recognized."
+
+ipython --pylab
+
+matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
+
+font = {'family' : 'Gill Sans MT'}    # 注意family的name
+
+matplotlib.rc('font', **font)
+
+[f.name for f in matplotlib.font_manager.fontManager.ttflist]
+
+font = {'family' : 'LATIN MODERN SANS'}
+
+font = {'family' : 'Palatino Linotype'}
+
+font = {'family' : 'IowanOldSt BT'}
+
+font = {'family' : 'Gill Sans MT'}
+
+font = {'family' : 'CMU Sans Serif'}    # Nature climate change fonts
+
+http://hyry.dip.jp/tech/book/page/scipy/matplotlib_fast_plot.html
+
+###
+
+from matplotlib.font_manager import fontManager
+
+fontManager.ttflist
+
+fontManager.ttflist是matplotlib的系统字体索引列表。其中的每个元素都是表示字体的Font对象。例如由第一个Font对象可知，字体名”cmex10”与字体文件“cmex10.ttf”相对应。下面的语句获得字体文件的全路径和字体名：
+
+fontManager.ttflist[0].name --> 返回字体的名字
+
+fontManager.ttflist[0].fname --> 可以返回字体的地址
+
+# [Add a ToolTip to Any Cell in Excel](https://www.mrexcel.com/excel-tips/add-a-tooltip-to-any-cell-in-excel/)
+1. Select the cell where you want the ToolTip to appear.
+2. Select Data, Validation (or press ```Alt + D``` followed by L)
+3. In the Data Validation dialog, go to the Input tab. Optionally type a title. Definitely type an Input Message
+4. Click OK
+
+<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
+<!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
