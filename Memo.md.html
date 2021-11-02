@@ -333,5 +333,18 @@ fontManager.ttflist[0].fname --> 可以返回字体的地址
 3. In the Data Validation dialog, go to the Input tab. Optionally type a title. Definitely type an Input Message
 4. Click OK
 
+# Latex
++ [Reduce space between enumerated items](https://tex.stackexchange.com/questions/6081/reduce-space-between-enumerated-items)
+Add "\itemsep"+length in the first Line
+```latex
+\begin{itemize} 
+\itemsep0em 
+\item one
+\item two
+\item three
+\end{itemize}
+```
+where "length" can even be a negative value.
+
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
