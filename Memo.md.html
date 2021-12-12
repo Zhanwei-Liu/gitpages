@@ -375,11 +375,11 @@ It is confilict with `cdo`, so I need to find a way creating virtual environment
 
 # Install OneDrive(docker)
 Refer to [Here](https://github.com/abraunegg/onedrive/blob/master/docs/Docker.md)
-1. Pull the image
-`docker pull driveone/onedrive:latest`
-2. Prepare config volume
-`docker volume create onedrive_conf`
-3. First run (`OneDrive` and `onedrive_conf` are modified accordingly)
+1. Pull the image 
+`docker pull driveone/onedrive:latest` 
+2. Prepare config volume 
+`docker volume create onedrive_conf` 
+3. First run (`OneDrive` and `onedrive_conf` are modified accordingly) 
 ```bash
 export ONEDRIVE_DATA_DIR="${HOME}/OneDrive"
 mkdir -p ${ONEDRIVE_DATA_DIR}
