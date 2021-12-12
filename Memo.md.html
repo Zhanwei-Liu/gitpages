@@ -373,5 +373,35 @@ sudo apt install ./synergy_1.8.8-stable+dfsg.1-1build1_amd64.deb
 ```
 It is confilict with `cdo`, so I need to find a way creating virtual environment.
 
+# Install OneDrive(docker)
+Refer to [Here](https://github.com/abraunegg/onedrive/blob/master/docs/Docker.md)
+1. Pull the image
+`docker pull driveone/onedrive:latest`
+2. Prepare config volume
+`docker volume create onedrive_conf`
+3. First run (`OneDrive` and `onedrive_conf` are modified accordingly)
+```bash
+export ONEDRIVE_DATA_DIR="${HOME}/OneDrive"
+mkdir -p ${ONEDRIVE_DATA_DIR}
+docker run -it --name onedrive -v onedrive_conf:/onedrive/conf \
+    -v "${ONEDRIVE_DATA_DIR}:/onedrive/data" \
+    -e "ONEDRIVE_UID=${ONEDRIVE_UID}" \
+    -e "ONEDRIVE_GID=${ONEDRIVE_GID}" \
+    driveone/onedrive:latest
+```
+4. Docker Container Status, stop, and restart
+ * Check if the monitor service is running
+  `docker ps -f name=onedrive`
+ * Show monitor run logs
+  `docker logs onedrive`
+ * Stop running monitor
+  `docker stop onedrive` 
+ * Resume monitor
+  `docker start onedrive`
+ * Remove onedrive Docker container
+  `docker rm -f onedrive`
+
+
+
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
