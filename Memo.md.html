@@ -403,9 +403,19 @@ docker run -it --name onedrive -v onedrive_conf:/onedrive/conf \
 
 # Research
 ## Data calculation
-+ (How to make a lake/reservoir volume-elevation curve with Python - Tutorial](https://hatarilabs.com/ih-en/how-to-make-a-lakereservoir-volume-elevation-curve-with-python-tutorial)
++ [How to make a lake/reservoir volume-elevation curve with Python - Tutorial](https://hatarilabs.com/ih-en/how-to-make-a-lakereservoir-volume-elevation-curve-with-python-tutorial)
 
-
+# SQL command
+## import csv file from database
+```sql
+select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<='2019-12-31 23:00:00' into outfile '/var/lib/mysql-files/generation.csv' FIELDS TERMINATED BY ',' ENCL OSED BY '"' LINES TERMINATED BY '\n';
+```
+# scp/rsync via ssh tunnel
++ [blog1](https://www.cnblogs.com/f-ck-need-u/p/10482832.html)
++ [blog2](https://www.jianshu.com/p/1ddab825956c)
++ ssh -Nf -L 1234:host2_ip:22 host3_username@host3_ip
++ scp -P 1234 local_username@localhost:/home/path/file ./
++ rsync -avuz -e 'ssh -p 1234' local_username@localhost:/home/path/file ./
 
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
