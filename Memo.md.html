@@ -417,5 +417,17 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
 + scp -P 1234 local_username@localhost:/home/path/file ./
 + rsync -avuz -e 'ssh -p 1234' local_username@localhost:/home/path/file ./
 
+# Login NSCC  (local computer run)
++ ssh metric_number@nus.nscc.sg
++ scp metric_number@nus.nscc.sg:~/path/file ./ (download file)
++ scp ./ metric_number@nus.nscc.sg:~/path/file (upload file)
+## module
++ module avail
++ module list 
++ module load ***
++ module unload ***
+## reference materials
++ [NSCC	New	User	Starter	Guide](https://help.nscc.sg/wp-content/uploads/2017/06/NSCC_New_User_Starter_Guide_v0.1.pdf?__cf_chl_f_tk=5Hm0z0U6XDBywy2r9qQm1GwrWVBUD6UBIfYVFsYAWx4-1642390965-0-gaNycGzNB9E)
++ [login portal](https://user.nscc.sg/saml/index.php)
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
