@@ -477,5 +477,19 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
 1. [Set password](https://docs.anaconda.com/anaconda/user-guide/tasks/remote-jupyter-notebook/)
 2. [Run by SSH](https://jupyter-notebook.readthedocs.io/en/stable/public_server.html)
 
+# 添加某个python环境到jupyter中 （可以使用路径添加）
++ C:\Python38\python.exe -m ipykernel install --name "condabase" --user
++ 获取当前编译器查找的模块目录
+```Python
+import sys
+print(sys.path)
+```
++ 如果上述目录没有指示的虚拟环境，说明添加没有成功，一般需要先安装ipykernel，然后使用ipykernel添加
+```bash
+conda create -n my-conda-env
+conda activate my-conda-env
+conda install ipykernel
+python -m ipykernel install --name "condabase" --user
+```
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
