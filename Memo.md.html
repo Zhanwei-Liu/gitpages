@@ -445,6 +445,25 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
 + ssh metric_number@nus.nscc.sg
 + scp metric_number@nus.nscc.sg:~/path/file ./ (download file)
 + scp ./ metric_number@nus.nscc.sg:~/path/file (upload file)
+
+# NUS-HPC 
++ 登录方式常用的主要有两种：[SSH](https://nusit.nus.edu.sg/services/getting-started/introductory-guide-for-new-hpc-users/)和[Computer Manager](https://nusit.nus.edu.sg/services/hpc/getting-started-hpc/new-hpc-portal-displaymanager/)。 Computer Manager登录可以很容易查看job和传输文件。
+  + SSH登录有以下一些主机名（Hostname）
+    - atlas6-c01.nus.edu.sg
+    - atlas7.nus.edu.sg
+    - atlas8.nus.edu.sg
+    - atlas8.nus.edu.sg
+    - 172.25.192.196 (我的gurobi安装在这里，gurobi只有在这个节点才会工作，许可证限制)
++ 必须通过PBS提交任务，不能直接执行。PBS的示例脚本可以登录查看H2OS目录下面的test.txt。
++ GUROBI和CPLEX的安装过程
+  + GUROBI 下载后上传解压，然后执行grbgetkey ****-***，进入bin目录再执行，然后生成许可证，按照许可证以及安装的目录设置环境变量
+    - export GRB_LICENSE_FILE="/home/svu/metric_number/gurobi.lic"
+    - export GUROBI_HOME="/home/svu/metric_number/gurobi9.5.0_linux64/gurobi950/linux64"
+    - export PATH="${PATH}:${GUROBI_HOME}/bin"
+    - export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+  + 在gurobi安装的目录找到setup.py，然后执行/home/svu/metric_number/.conda/envs/h2Os/bin/python setup.py install。写完整目录指定编译器的目的是安装到对于的虚拟环境，也可以激活虚拟环境之后直接用python命令。(gurobi需要识别计算机的唯一标识目前我无法在集群上使用)
++ CPLEX 登录官网下载bin文件，然后chmod +x *.bin, 然后执行./*.bin文件，一步一步进行安装，在仿照gurobi的安装过程进行安装目录根据setup.py文件安装cplex即可，cplex不需要单独在激活许可证，可以在集群中使用，但是cplex不支持求解非凸问题。目前我已经在NUS-HPC安装好了CPLEX和GUROBI。
+
 ## module
 + module avail
 + module list 
