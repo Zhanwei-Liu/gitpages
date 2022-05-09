@@ -445,9 +445,7 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
 + ssh metric_number@nus.nscc.sg
 + scp metric_number@nus.nscc.sg:~/path/file ./ (download file)
 + scp ./ metric_number@nus.nscc.sg:~/path/file (upload file)
-<<<<<<< HEAD
 + NUS users - ssh to `nscc04-ib0` after logging in to `nus.nscc.sg`, and download files from Internet
-=======
 
 # NUS-HPC 
 + 登录方式常用的主要有两种：[SSH](https://nusit.nus.edu.sg/services/getting-started/introductory-guide-for-new-hpc-users/)和[Computer Manager](https://nusit.nus.edu.sg/services/hpc/getting-started-hpc/new-hpc-portal-displaymanager/)。 Computer Manager登录可以很容易查看job和传输文件。
@@ -467,7 +465,6 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
   + 在gurobi安装的目录找到setup.py，然后执行/home/svu/metric_number/.conda/envs/h2Os/bin/python setup.py install。写完整目录指定编译器的目的是安装到对于的虚拟环境，也可以激活虚拟环境之后直接用python命令。(gurobi需要识别计算机的唯一标识目前我无法在集群上使用)
 + CPLEX 登录官网下载bin文件，然后chmod +x *.bin, 然后执行./*.bin文件，一步一步进行安装，在仿照gurobi的安装过程进行安装目录根据setup.py文件安装cplex即可，cplex不需要单独在激活许可证，可以在集群中使用，但是cplex不支持求解非凸问题。目前我已经在NUS-HPC安装好了CPLEX和GUROBI。
 
->>>>>>> a94e5ab3e0add87d68d13c1a61094b9593728879
 ## module
 + module avail
 + module list 
