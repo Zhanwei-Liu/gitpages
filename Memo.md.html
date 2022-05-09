@@ -67,6 +67,10 @@ https://casual-effects.com/markdeep/#getstarted
     + conda activate my-conda-env          # activate environment in terminal
     + conda install jupyter                # install jupyter + notebook
     + jupyter notebook                     # start server + kernel
+### [conda 导出环境/导入环境/导出base环境](https://blog.csdn.net/shunaoxi2313/article/details/92003710)
+    + conda env export > py36.yaml
+    + conda env create -f py36.yaml
+
 ## Print path of python interpreter
 import sys;sys.executable
 ## Print all available kernels
@@ -441,7 +445,29 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
 + ssh metric_number@nus.nscc.sg
 + scp metric_number@nus.nscc.sg:~/path/file ./ (download file)
 + scp ./ metric_number@nus.nscc.sg:~/path/file (upload file)
+<<<<<<< HEAD
 + NUS users - ssh to `nscc04-ib0` after logging in to `nus.nscc.sg`, and download files from Internet
+=======
+
+# NUS-HPC 
++ 登录方式常用的主要有两种：[SSH](https://nusit.nus.edu.sg/services/getting-started/introductory-guide-for-new-hpc-users/)和[Computer Manager](https://nusit.nus.edu.sg/services/hpc/getting-started-hpc/new-hpc-portal-displaymanager/)。 Computer Manager登录可以很容易查看job和传输文件。
+  + SSH登录有以下一些主机名（Hostname）
+    - atlas6-c01.nus.edu.sg
+    - atlas7.nus.edu.sg
+    - atlas8.nus.edu.sg
+    - atlas8.nus.edu.sg
+    - 172.25.192.196 (我的gurobi安装在这里，gurobi只有在这个节点才会工作，许可证限制)
++ 必须通过PBS提交任务，不能直接执行。PBS的示例脚本可以登录查看H2OS目录下面的test.txt。
++ GUROBI和CPLEX的安装过程
+  + GUROBI 下载后上传解压，然后执行grbgetkey ****-***，进入bin目录再执行，然后生成许可证，按照许可证以及安装的目录设置环境变量
+    - export GRB_LICENSE_FILE="/home/svu/metric_number/gurobi.lic"
+    - export GUROBI_HOME="/home/svu/metric_number/gurobi9.5.0_linux64/gurobi950/linux64"
+    - export PATH="${PATH}:${GUROBI_HOME}/bin"
+    - export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+  + 在gurobi安装的目录找到setup.py，然后执行/home/svu/metric_number/.conda/envs/h2Os/bin/python setup.py install。写完整目录指定编译器的目的是安装到对于的虚拟环境，也可以激活虚拟环境之后直接用python命令。(gurobi需要识别计算机的唯一标识目前我无法在集群上使用)
++ CPLEX 登录官网下载bin文件，然后chmod +x *.bin, 然后执行./*.bin文件，一步一步进行安装，在仿照gurobi的安装过程进行安装目录根据setup.py文件安装cplex即可，cplex不需要单独在激活许可证，可以在集群中使用，但是cplex不支持求解非凸问题。目前我已经在NUS-HPC安装好了CPLEX和GUROBI。
+
+>>>>>>> a94e5ab3e0add87d68d13c1a61094b9593728879
 ## module
 + module avail
 + module list 
@@ -474,5 +500,19 @@ select * from ac_hour where dtcd = '3060' and tm>='2019-01-01 00:00:00' and tm<=
 1. [Set password](https://docs.anaconda.com/anaconda/user-guide/tasks/remote-jupyter-notebook/)
 2. [Run by SSH](https://jupyter-notebook.readthedocs.io/en/stable/public_server.html)
 
+# 添加某个python环境到jupyter中 （可以使用路径添加）
++ C:\Python38\python.exe -m ipykernel install --name "condabase" --user
++ 获取当前编译器查找的模块目录
+```Python
+import sys
+print(sys.path)
+```
++ 如果上述目录没有指示的虚拟环境，说明添加没有成功，一般需要先安装ipykernel，然后使用ipykernel添加
+```bash
+conda create -n my-conda-env
+conda activate my-conda-env
+conda install ipykernel
+python -m ipykernel install --name "condabase" --user
+```
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
